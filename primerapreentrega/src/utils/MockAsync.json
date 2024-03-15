@@ -1,0 +1,50 @@
+{
+  "categorias": [
+    {"id": 1, "nombre": "Golosinas"},
+    {"id": 2, "nombre": "Refrescos"},
+    {"id": 3, "nombre": "Quesos"},
+    {"id": 4, "nombre": "Dulces"}
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Galletas",
+      "descripcion": "Descripcion producto 1",
+      "precio": 0.50,
+      "stock": 100,
+      "imagen": "",
+      "isOnDiscount": false,
+      "Categoria": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Bebida",
+      "descripcion": "Descripcion producto 2",
+      "precio": 0.75,
+      "stock": 150,
+      "imagen": "",
+      "isOnDiscount": false,
+      "Categoria": 2
+    },
+    {
+      "id": 3,
+      "nombre": "ALASDA",
+      "descripcion": "Descripcion producto 3",
+      "precio": 1.00,
+      "stock": 80,
+      "imagen": "",
+      "isOnDiscount": false,
+      "Categoria": 3
+    },
+    {
+      "id": 4,
+      "nombre": "SUSUCA",
+      "descripcion": "Descripcion producto 4",
+      "precio": 1.25,
+      "stock": 120,
+      "imagen": "",
+      "isOnDiscount": false,
+      "Categoria": 4
+    }
+  ]
+}

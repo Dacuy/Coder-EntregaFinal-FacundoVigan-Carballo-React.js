@@ -1,9 +1,10 @@
-const ItemListContainer = ({ greeting }) => {
+import { useParams } from "react-router-dom";
+
+const ItemListContainer = () => {
+    const { id } = useParams();
     return (  
         <>
-            <div className="text-center">
-                <span>{greeting}</span>
-            </div>
+            
         </>
     );
 }
