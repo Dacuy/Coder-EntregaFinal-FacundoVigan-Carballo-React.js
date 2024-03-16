@@ -1,50 +1,200 @@
 {
   "categorias": [
-    {"id": 1, "nombre": "Golosinas"},
-    {"id": 2, "nombre": "Refrescos"},
-    {"id": 3, "nombre": "Quesos"},
-    {"id": 4, "nombre": "Dulces"}
-  ],
+  { "id": 1, "nombre": "Yerbas" },
+  { "id": 2, "nombre": "Dulces" },
+  { "id": 3, "nombre": "Termos" }
+],
   "productos": [
     {
       "id": 1,
-      "nombre": "Galletas",
-      "descripcion": "Descripcion producto 1",
+      "nombre": "Yerba Sara",
+      "descripcion": "Yerba mate Sara con un sabor suave y equilibrado. Perfecta para disfrutar en cualquier momento del día.",
       "precio": 0.50,
       "stock": 100,
-      "imagen": "",
+      "imagen": "https://www.cebate.pt/3-large_default/yerba-mate-sara-extra-suave.jpg",
       "isOnDiscount": false,
-      "Categoria": 1
+      "categoria": 1
     },
     {
       "id": 2,
-      "nombre": "Bebida",
-      "descripcion": "Descripcion producto 2",
-      "precio": 0.75,
-      "stock": 150,
-      "imagen": "",
-      "isOnDiscount": false,
-      "Categoria": 2
+      "nombre": "Yerba Baldo",
+      "descripcion": "Yerba mate Baldo, una opción con un toque más intenso para los amantes de la yerba mate con carácter.",
+      "precio": 1.00,
+      "stock": 75,
+      "imagen": "https://www.cebate.pt/798-large_default/yerba-mate-baldo.jpg",
+      "isOnDiscount": true,
+      "categoria": 1
     },
     {
       "id": 3,
-      "nombre": "ALASDA",
-      "descripcion": "Descripcion producto 3",
-      "precio": 1.00,
-      "stock": 80,
-      "imagen": "",
-      "isOnDiscount": false,
-      "Categoria": 3
+      "nombre": "Yerba Canarias",
+      "descripcion": "Yerba mate Canarias, una elección clásica con un sabor tradicional y auténtico.",
+      "precio": 0.75,
+      "stock": 120,
+      "imagen": "https://www.cebate.pt/1-large_default/yerba-mate-canarias-tradicional.jpg",
+      "isOnDiscount": true,
+      "categoria": 1
     },
     {
       "id": 4,
-      "nombre": "SUSUCA",
-      "descripcion": "Descripcion producto 4",
-      "precio": 1.25,
+      "nombre": "Yerba La Selva",
+      "descripcion": "Yerba mate La Selva, una opción que combina la tradición con un toque de innovación en su sabor.",
+      "precio": 0.75,
       "stock": 120,
-      "imagen": "",
-      "isOnDiscount": false,
-      "Categoria": 4
+      "imagen": "https://www.cebate.pt/2-large_default/yerba-mate-nervosos-la-selva.jpg",
+      "isOnDiscount": true,
+      "categoria": 1
+    },
+    {
+      "id": 5,
+      "nombre": "Yerba Cabral",
+      "descripcion": "Yerba mate Cabral, una yerba de calidad con un sabor característico y aroma envolvente.",
+      "precio": 0.75,
+      "stock": 120,
+      "imagen": "https://www.cebate.pt/6-large_default/yerba-mate-cabral-silueta-ideal.jpg",
+      "isOnDiscount": true,
+      "categoria": 1
+    },
+    {
+      "id": 6,
+      "nombre": "Yerba CBSE",
+      "descripcion": "Yerba mate CBSE aromatizada con guaraná, una opción energizante y deliciosa para disfrutar en cualquier momento.",
+      "precio": 0.75,
+      "stock": 120,
+      "imagen": "https://www.cebate.pt/147-large_default/yerba-mate-aromatizada-guarana-cbse.jpg",
+      "isOnDiscount": true,
+      "categoria": 1
+    },
+    {
+      "id": 7,
+      "nombre": "Dulce de leche Los Nietitos",
+      "descripcion": "Dulce de leche Los Nietitos, un clásico irresistible con un sabor auténtico y cremoso.",
+      "precio": 0.25,
+      "stock": 200,
+      "imagen": "https://www.mate-tee.de/images/product_images/info_images/2262_0.jpg",
+      "isOnDiscount":false,
+      "categoria":2
+    },
+    {
+      "id": 8,
+      "nombre": "Dulce de leche Manjar",
+      "descripcion": "Dulce de leche Manjar, una deliciosa opción para endulzar tus postres y meriendas con su textura suave y dulzura incomparable.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.lacasadelqueso.com.uy/productos/imgs/dulce-de-leche-manjar-3842-35.png",
+      "isOnDiscount": true,
+      "categoria": 2
+
+    },
+    {
+      "id": 9,
+      "nombre": "Dulce de leche Conaprole",
+      "descripcion": " Dulce de leche Conaprole, un clásico de la repostería uruguaya, cremoso y delicioso para disfrutar en cualquier ocasión.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.conaprole.uy/wp-content/uploads/2018/03/dulce-de-leche-970g.png",
+      "isOnDiscount": true,
+      "categoria": 2
+
+    },
+    {
+      "id": 10,
+      "nombre": "Dulce de leche La Serenisima",
+      "descripcion": "Dulce de leche La Serenisima, un producto de calidad con un sabor inigualable para disfrutar en tus postres favoritos.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://masonlineprod.vtexassets.com/arquivos/ids/293811/Dulce-De-Leche-La-Serenisima-Cl-sico-400g-2-10182.jpg?v=638276565804930000",
+      "isOnDiscount": true,
+      "categoria": 2
+
+    },
+    {
+      "id": 11,
+      "nombre": "Dulce de leche Mardel",
+      "descripcion": "Dulce de leche Mardel, perfecto para darle un toque especial a tus preparaciones con su dulzura única y textura cremosa.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.pampadrugstore.net/1728-thickbox_default/dulce-de-leche-mardel-pastelero-1-kilo.webp",
+      "isOnDiscount": true,
+      "categoria": 2
+
+    },
+    {
+      "id": 12,
+      "nombre": "Dulce de leche La Pataia",
+      "descripcion": "Dulce de leche La Pataia, una opción gourmet con un sabor excepcional para los paladares más exigentes.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "data:image/jpeg;base64,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",
+      "isOnDiscount": true,
+      "categoria": 2
+
+    },
+    {
+      "id": 13,
+      "nombre": "Termo Stanley",
+      "descripcion": "Mantén tu mate caliente durante horas con nuestro termo Stanley de alta resistencia. Fabricado con materiales de primera calidad y un diseño robusto, este termo es ideal para llevar tu mate contigo a donde vayas, ya sea de excursión, al trabajo o simplemente para disfrutar en casa. Con una capacidad generosa y un rendimiento térmico excepcional, este termo garantiza que tu mate se mantenga caliente y delicioso en todo momento. Además, su diseño elegante y funcional lo convierte en un accesorio imprescindible para cualquier amante del mate.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.worten.pt/i/c3f061544809b67b5f4d355e512ae4d22ae0dc5a.jpg",
+      "isOnDiscount": true,
+      "categoria": 3
+
+    },
+    {
+      "id": 14,
+      "nombre": "Mate Stanley",
+      "descripcion": "Sumérgete en la cultura sudamericana con nuestro auténtico mate. Este tradicional recipiente de calabaza, diseñado para disfrutar de la infusión de yerba mate, te llevará en un viaje sensorial a las vastas llanuras de Argentina y Uruguay. Hecho a mano con la más alta calidad de calabaza, cada mate cuenta con un diseño único y rústico que le da un encanto especial. Disfruta de momentos de relajación y camaradería mientras compartes esta bebida tradicional con amigos y familiares.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "data:image/jpeg;base64,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",
+      "isOnDiscount": true,
+      "categoria": 3
+
+    },
+    {
+      "id": 15,
+      "nombre": "Mate",
+      "descripcion": "Sumérgete en la cultura sudamericana con nuestro auténtico mate. Este tradicional recipiente de calabaza, diseñado para disfrutar de la infusión de yerba mate, te llevará en un viaje sensorial a las vastas llanuras de Argentina y Uruguay. Hecho a mano con la más alta calidad de calabaza, cada mate cuenta con un diseño único y rústico que le da un encanto especial. Disfruta de momentos de relajación y camaradería mientras compartes esta bebida tradicional con amigos y familiares.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "data:image/jpeg;base64,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",
+      "isOnDiscount": true,
+      "categoria": 3
+
+    },
+    {
+      "id": 16,
+      "nombre": "Bombilla de Bambú",
+      "descripcion": "Completa tu experiencia de mate con nuestra bombilla de acero inoxidable. Diseñada específicamente para la infusión de yerba mate, esta bombilla de alta calidad garantiza un flujo suave y uniforme de la infusión, permitiéndote disfrutar de cada sorbo de esta deliciosa bebida. Con su diseño elegante y duradero, esta bombilla es el complemento perfecto para tu mate, asegurando una experiencia de consumo cómoda y placentera.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.cebate.pt/122-large_default/bombilla-de-bambu-natural-17-cm.jpg",
+      "isOnDiscount": true,
+      "categoria": 3
+
+    },
+    {
+      "id": 17,
+      "nombre": "Bombilla de Aluminio",
+      "descripcion": "Completa tu experiencia de mate con nuestra bombilla de acero inoxidable. Diseñada específicamente para la infusión de yerba mate, esta bombilla de alta calidad garantiza un flujo suave y uniforme de la infusión, permitiéndote disfrutar de cada sorbo de esta deliciosa bebida. Con su diseño elegante y duradero, esta bombilla es el complemento perfecto para tu mate, asegurando una experiencia de consumo cómoda y placentera.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.cebate.pt/25-large_default/bombilla-aluminio-varias-cores.jpg",
+      "isOnDiscount": true,
+      "categoria": 3
+
+    },
+    {
+      "id": 18,
+      "nombre": "Termo acero Inox",
+      "descripcion": "Mantén tu mate caliente durante horas con nuestro termo Stanley de alta resistencia. Fabricado con materiales de primera calidad y un diseño robusto, este termo es ideal para llevar tu mate contigo a donde vayas, ya sea de excursión, al trabajo o simplemente para disfrutar en casa. Con una capacidad generosa y un rendimiento térmico excepcional, este termo garantiza que tu mate se mantenga caliente y delicioso en todo momento. Además, su diseño elegante y funcional lo convierte en un accesorio imprescindible para cualquier amante del mate.",
+      "precio": 0.80,
+      "stock": 50,
+      "imagen": "https://www.cebate.pt/622-large_default/termo-inox-el-paisito.jpg",
+      "isOnDiscount": true,
+      "categoria": 3
+
     }
   ]
 }

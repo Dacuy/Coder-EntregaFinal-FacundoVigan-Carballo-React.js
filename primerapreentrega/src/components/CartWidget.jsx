@@ -1,13 +1,10 @@
-import Cart from '../assets/carrito.svg'
+import Cart from '../assets/Cart.svg'
+
 const CartWidget = () => {
-    return (  
-        <>
-        <div className='flex'>
-            <img width={30} className='' src={Cart} alt='cart'></img>
-            <span className='text-white'>(10)</span>
-        </div>
-        </>
-    );
+  return (<><div className='flex'>
+    <img src={Cart} alt="Cart" />
+    <span className='text-white'>(19)</span>
+  </div></>);
 }
- 
+
 export default CartWidget;
