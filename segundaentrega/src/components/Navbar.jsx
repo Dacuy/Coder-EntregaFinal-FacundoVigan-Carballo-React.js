@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para realizar la búsqueda
+    //busqueda
     console.log('Buscar:', searchInput);
   };
 

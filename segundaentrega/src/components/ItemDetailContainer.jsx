@@ -11,7 +11,6 @@ const ItemDetailContainer = () => {
 
   useEffect(() => {
     setLoading(true);
-    // Simulando una llamada a una API
     fakeApiCall(products)
       .then(response => {
         const foundProduct = response.productos.find(item => item.id === parseInt(id));

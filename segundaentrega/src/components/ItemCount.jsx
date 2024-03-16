@@ -2,7 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 const generateRandomNumber = () => {
-  return Math.floor(10000 + Math.random() * 90000); // Genera un número aleatorio de 5 dígitos
+  return Math.floor(10000 + Math.random() * 90000);
 };
 
 const ItemCount = ({ stock, initial, productName, onAdd }) => {
@@ -34,7 +34,7 @@ const ItemCount = ({ stock, initial, productName, onAdd }) => {
             text: `Número de encargo: ${orderNumber}`,
             position: "top-end",
             showConfirmButton: false,
-            timer: 1500 // Duración del mensaje en milisegundos
+            timer: 1500
           });
         }
       });
