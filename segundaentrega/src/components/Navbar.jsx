@@ -1,72 +1,88 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CartWidget from "./CartWidget";
-import Unicorn from '../../public/Unicorn.svg';
-import { Link } from "react-router-dom";
+import Unicornio from '../../public/Unicorn.svg';
+import { NavLink } from "react-router-dom";
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { CartContext } from '../context/CartContext';
 
 const Navbar = () => {
   const [showCategories, setShowCategories] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
+  const [categories, setCategories] = useState([]);
+  const { cart } = useContext(CartContext);
+  const totalProducts = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleSearchChange = (e) => {
-    setSearchInput(e.target.value);
-  };
+  useEffect(() => {
+    const db = getFirestore();
+    const getItemsByDoc = collection(db, 'categorias');
+    getDocs(getItemsByDoc).then((snapshot) => {
+      if (snapshot.size === 0) {
+        console.log('no resultado');
+      }
+      setCategories(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+  }, []);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    //busqueda
-    console.log('Buscar:', searchInput);
+  const toggleCategories = () => {
+    setShowCategories(!showCategories);
   };
 
   return (
-    <nav className="bg-blue-700 py-6">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <img src={Unicorn} alt="Unicorn" className="w-12 h-12" />
-          <Link to="/" className="text-white text-lg font-semibold hover:text-blue-200">
-            Volver al Inicio
-          </Link>
+    <nav className="bg-blue-600 py-4">
+      <div className="container mx-auto px-4 flex justify-between items-center">
+        <NavLink to="/" className="text-white font-bold text-xl flex items-center">
+          <img src={Unicornio} alt="" className="w-8 h-8 mr-2" />
+        </NavLink>
+
+        <div className="flex-grow mx-8">
+          <form className="bg-white p-2 rounded-lg flex items-center">
+            <input type="text" placeholder="Buscar productos" className="w-full p-2 rounded-md outline-none" />
+            <button type="submit" className="ml-2 bg-blue-700 text-white p-2 rounded-md">
+              Buscar
+            </button>
+          </form>
         </div>
 
-        <form onSubmit={handleSearchSubmit} className="flex items-center flex-grow mx-6">
-          <input
-            type="text"
-            value={searchInput}
-            onChange={handleSearchChange}
-            placeholder="Buscar productos..."
-            className="px-4 py-2 rounded-l-md focus:outline-none flex-grow"
-          />
-          <button type="submit" className="bg-white text-blue-700 px-4 py-2 rounded-r-md rounded-l-none focus:outline-none hover:bg-blue-100">
-            Buscar
-          </button>
-        </form>
+        <div className="flex items-center space-x-4">
+          <NavLink to="/order-search" className="text-white text-xl">
+            Buscar Orden
+          </NavLink>
 
-        <div className="flex items-center space-x-6">
-          <Link to="/products" className="text-white text-lg hover:text-blue-200">Productos</Link>
-          <Link to="/contact" className="text-white text-lg hover:text-blue-200">Contacto</Link>
           <div className="relative">
-            <button className="text-white text-lg focus:outline-none" onClick={() => setShowCategories(!showCategories)}>
+            <button 
+              className="text-white text-xl"
+              onClick={toggleCategories}
+            >
               Categorías
             </button>
             {showCategories && (
-              <ul className="absolute bg-white text-lg rounded-lg shadow-md py-2 mt-2 w-48 z-10">
-                <li>
-                  <Link to="/category/1" className="block px-4 py-2 hover:bg-blue-100">Yerbas</Link>
-                </li>
-                <li>
-                  <Link to="/category/2" className="block px-4 py-2 hover:bg-blue-100">Dulces</Link>
-                </li>
-                <li>
-                  <Link to="/category/3" className="block px-4 py-2 hover:bg-blue-100">Termos</Link>
-                </li>
-              </ul>
+              <div className="absolute left-0 mt-2 bg-white text-blue-600 text-xl p-2 rounded-lg shadow-lg z-10 border border-gray-200">
+                {categories.length > 0 &&
+                  categories.map((cat) => (
+                    <NavLink
+                      key={cat.id}
+                      to={`/category/${cat.id}`}
+                      className="block hover:bg-blue-200 py-1 px-4 rounded-md"
+                    >
+                      {cat.nombre}
+                    </NavLink>
+                  ))}
+              </div>
             )}
           </div>
-        </div>
 
-        <CartWidget />
+          <NavLink to="/items" className="text-white text-xl">
+            Productos
+          </NavLink>
+          <NavLink to="/contact" className="text-white text-xl">
+            Contacto
+          </NavLink>
+          <NavLink to="/cart" className="text-white text-xl">
+            <CartWidget totalProducts={totalProducts} />
+          </NavLink>
+        </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

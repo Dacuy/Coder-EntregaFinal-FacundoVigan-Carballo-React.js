@@ -1,20 +1,43 @@
 import './App.css'
 import Navbar from './components/Navbar'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ItemListContainer from './components/ItemListContainer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ItemDetailContainer from './components/ItemDetailContainer'
+import { CartContext, CartProvider } from './context/CartContext';
+import CartPage from './components/CartPage';
+import OrderSearch from './components/OrderSearch';
 function App() {
 
   return (
     <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<ItemListContainer />} />
-          <Route path='/category/:id' element={<ItemListContainer />} />
-          <Route path='/item/:id' element={<ItemDetailContainer/>} />
-        </Routes>
-      </Router>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition:Bounce
+          />
+          <Routes>
+            <Route path="/category/:id" element={<ItemListContainer />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path='/items' element={<ItemDetailContainer />} />
+            <Route path="/item/:id" element={<ItemDetailContainer />} />
+            <Route path="/" exact element={<ItemListContainer />} />
+            <Route path="/order-search" element={<OrderSearch />} />
+          </Routes>
+        </Router>
+      </CartProvider>
     </>
   )
 }

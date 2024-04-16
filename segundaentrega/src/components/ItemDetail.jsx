@@ -1,37 +1,46 @@
+import { toast } from "react-toastify";
 import ItemCount from "./ItemCount";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 export const ItemDetail = ({ item }) => {
-  const handleAdd = () => {
-    console.log('Agregar al carrito');
-  }
+  const { nombre, imagen, precio, isOnDiscount, descripcion, stock } = item;
 
-  const { id, nombre, descripcion, precio, stock, imagen, isOnDiscount, categoria } = item;
+  const { addItem, cart, removeItem } = useContext(CartContext);
+
+  const onAdd = (quantity) => {
+    addItem(item, quantity);
+    toast('El item fue agregado correctamente');
+  };
+
+  const onRemove = (quantity) => {
+    removeItem(item.id, quantity);
+    toast('El item fue eliminado correctamente');
+  };
 
   return (
-    <div className="max-w-6xl mx-auto my-8 overflow-hidden rounded-lg shadow-lg border border-gray-200 mt-8">
-      <div className="flex">
-        <img src={imagen} alt={nombre} className="w-1/2 h-auto object-cover" />
-        <div className="p-6 flex flex-col justify-between w-1/2">
-          <div>
-            <h3 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-4">{nombre}</h3>
-            <p className="text-lg md:text-2xl text-gray-900 mb-2">Precio: ${precio.toFixed(2)}</p>
-            {isOnDiscount && (
-              <span className="inline-block bg-red-500 text-white text-lg font-semibold px-2 py-1 rounded-full mb-2">
-                ¡Descuento!
-              </span>
-            )}
-            <p className="text-base md:text-lg text-gray-700 mb-2">Categoría: {categoria.nombre}</p>
-            <p className="text-base md:text-lg text-gray-700 mb-2">
-              Disponibilidad: 
-              <span className={`inline-block ml-2 ${stock > 0 ? 'bg-green-500' : 'bg-red-500'} text-white text-lg font-semibold px-2 py-1 rounded-full`}>
-                {stock > 0 ? 'Disponible' : 'No disponible'}
-              </span>
-            </p>
-            <p className="text-base md:text-lg text-gray-700 mb-8">{descripcion}</p>
+    <div className="container mx-auto px-4 py-12">
+      <div className="bg-white rounded-lg overflow-hidden shadow-lg w-full md:w-4/5 lg:w-3/4 xl:w-2/3 mx-auto">
+        <div className="flex flex-wrap justify-center items-center">
+          <div className="w-full md:w-1/2 p-8">
+            <img src={imagen} alt={nombre} className="w-full h-full object-cover rounded-lg" />
           </div>
-          <ItemCount stock={stock} initial={0} onAdd={handleAdd} />
+
+          <div className="w-full md:w-1/2 p-8">
+            <h1 className="font-bold text-4xl mb-6">{nombre}</h1>
+            <p className="text-gray-700 text-3xl mb-4">${precio}</p>
+            <p className={`text-${isOnDiscount ? 'red' : 'green'}-500 text-3xl mb-6`}>
+              {isOnDiscount ? `¡En descuento!` : `Precio regular`}
+            </p>
+            <p className="text-gray-700 text-3xl mb-6">Stock: {stock}</p>
+            <p className="text-gray-700 text-xl mb-6">{descripcion}</p>
+            <ItemCount stock={stock} initial={0} item={item} onAdd={onAdd} onRemove={onRemove} />
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default ItemDetail;

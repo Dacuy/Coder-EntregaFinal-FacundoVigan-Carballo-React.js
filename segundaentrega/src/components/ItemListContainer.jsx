@@ -1,72 +1,69 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
-
-import categories from '../utils/MockAsync.json';
-import { fakeApiCall } from "../utils/fakeApiCall";
+import { Link, useParams } from "react-router-dom";
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 const ItemListContainer = () => {
   const { id } = useParams();
-  const location = useLocation();
-  const [response, setResponse] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fakeApiCall(categories).then(res => {
-      setResponse(res);
+    const db = getFirestore();
+    
+    const getCategorias = collection(db, 'categorias');
+    getDocs(getCategorias).then((snapshot) => {
+      if (snapshot.size === 0) {
+        console.log('No hay categorías');
+      }
+      setCategorias(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    });
+
+    const getProductosByCategoria = query(collection(db, 'productos'), where("categoria", "==", parseInt(id)));
+    getDocs(getProductosByCategoria).then((snapshot) => {
+      if (snapshot.size === 0) {
+        console.log('No hay productos');
+      }
+      setProductos(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
     });
-  }, []);
+  }, [id]);
 
   if (loading) return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-20 h-20 mb-4 animate-spin rounded-full border-t-4 border-blue-500"></div>
-      <p className="text-gray-600">Cargando...</p>
+    <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-600"></div>
     </div>
   );
-
-  const getProductosByCategory = (catId) => {
-    if (catId) {
-      return response.productos.filter((product) => product.categoria === parseInt(catId));
-    } else {
-      return response.productos;
-    }
-  };
-
-  const productsPorCategoria = getProductosByCategory(id);
+  
+  
 
   return (
-    <>
-      <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold mb-4">Categorías</h1>
-        <div className="flex flex-wrap justify-center">
-          {response.categorias && response.categorias.map((cat, index) => (
-            <Link key={`cat_${index}_${cat.id}`} to={`/category/${cat.id}`} className="mx-4 my-2 px-4 py-2 bg-gray-200 rounded-md text-lg">
-              <h2>{cat.nombre}</h2>
-            </Link>
-          ))}
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Categorías</h1>
+      <div className="grid grid-cols-3 gap-4 justify-items-center">
+        {categorias.map((categoria, index) => (
+          <Link key={index} to={`/category/${categoria.id}`}>
+            <div className={`p-2 rounded shadow-md hover:bg-blue-500 hover:text-white ${parseInt(id) === categoria.id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+              <h2 className="text-lg font-semibold">{categoria.nombre}</h2>
+            </div>
+          </Link>
+        ))}
       </div>
-      <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold mb-4">Productos</h1>
+
+      <div className="mt-10">
+        <h2 className="text-2xl font-bold mb-4">{productos.length > 0 ? `Productos de la categoría` : 'No hay productos disponibles en esta categoría'}</h2>
         <div className="grid grid-cols-3 gap-4">
-          {productsPorCategoria && productsPorCategoria.map((producto, index) => (
-            <Link key={`producto_${index}_${producto.id}`} to={`/item/${producto.id}`} className="w-full">
-              <div className="bg-white shadow-md rounded-md p-4 flex flex-col justify-between">
-                <img src={producto.imagen} alt={producto.nombre} className="w-full h-32 object-cover mb-4" />
-                <h2 className="text-xl font-bold">{producto.nombre}</h2>
-                <p className="text-gray-700 mt-2">Precio: ${producto.precio.toFixed(2)}</p>
+          {productos.map((producto, index) => (
+            <Link key={index} to={`/item/${producto.id}`}>
+              <div className="bg-white p-4 rounded shadow-md flex flex-col items-center justify-center">
+                <img src={producto.imagen} alt={producto.nombre} className="mb-2 w-24 h-24 object-cover bg-white rounded-full p-1" />
+                <h3 className="text-lg font-semibold">{producto.nombre}</h3>
               </div>
             </Link>
           ))}
         </div>
       </div>
-      {location.pathname !== "/" && (
-        <div className="container mx-auto mt-8">
-          <Link to="/" className="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md">Ver Todo</Link>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 

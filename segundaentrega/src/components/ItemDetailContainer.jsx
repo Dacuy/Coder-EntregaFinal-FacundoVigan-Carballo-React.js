@@ -1,51 +1,55 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import products from '../utils/MockAsync.json';
-import { ItemDetail } from "./ItemDetail";
-import { fakeApiCall } from "../utils/fakeApiCall";
+//agrupador de componentes
 
+import { useEffect, useState } from "react";
+import { ItemDetail } from "./ItemDetail";
+import { useParams } from "react-router-dom";
+import { getFirestore, collection, query, where, getDocs, getDoc, doc } from 'firebase/firestore';
 const ItemDetailContainer = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-    fakeApiCall(products)
-      .then(response => {
-        const foundProduct = response.productos.find(item => item.id === parseInt(id));
-        if (foundProduct) {
-          setProduct(foundProduct);
-        } else {
-          console.error(`Producto con ID ${id} no encontrado.`);
+
+  useEffect(() =>{
+    const db = getFirestore();
+    if(id){
+      const getProduct = query(collection(db, 'productos'), where("id", "==", parseInt(id)))
+      getDocs(getProduct).then((snapshot) => {
+        if(snapshot.size === 0) {
+          console.log("No hay categorias")
         }
+        setProducts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()})))
+        setLoading(false)
       })
-      .catch(error => {
-        console.error('Error al obtener los datos del producto:', error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [id]);
+    }else{
+      const getProducts = collection(db, 'productos')
+      getDocs(getProducts).then((snapshot) => {
+        if(snapshot.size === 0) {
+          console.log("No hay categorias")
+        }
+        setProducts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()})))
+        setLoading(false)
+      })        
+    }
+    
+  }, [id])
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="w-20 h-20 mb-4 animate-spin rounded-full border-t-4 border-blue-500"></div>
-        <p className="text-gray-600">Cargando...</p>
-      </div>
-    );
-  }
 
-  return (
-    <div className="container mx-auto mt-8">
-      {product ? (
-        <ItemDetail item={product} />
-      ) : (
-        <p className="text-red-600">Producto no encontrado</p>
-      )}
+
+
+
+  if (loading) return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-600"></div>
     </div>
   );
-}
+
+  return (
+    <div>
+      {products && products.map((item, index) => <ItemDetail key={index} item={item} />)}
+    </div>
+  );
+};
+
 
 export default ItemDetailContainer;
